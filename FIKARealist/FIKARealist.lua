@@ -1,4 +1,6 @@
+local addonName = ...
 local addonFrame = CreateFrame("Frame")
+addonFrame:RegisterEvent("ADDON_LOADED")
 addonFrame:RegisterEvent("CHAT_MSG_SYSTEM")
 
 local guildName = "FIKA"
@@ -114,19 +116,39 @@ local function printStatus(message)
     DEFAULT_CHAT_FRAME:AddMessage(addonPrefix .. " " .. message)
 end
 
+local function setEnabled(newValue)
+    isEnabled = newValue and true or false
+    FIKARealistDB = FIKARealistDB or {}
+    FIKARealistDB.enabled = isEnabled
+end
+
+local function toggleEnabled()
+    setEnabled(not isEnabled)
+    if isEnabled then
+        printStatus("Aktiverad. Skriver i guildchat nar nagon joinar.")
+    else
+        printStatus("Avstangd. Skriver inte i guildchat.")
+    end
+end
+
 SLASH_FIKANEG1 = "/fikaneg"
 SLASH_FIKANEG2 = "/fikneg"
 SlashCmdList.FIKANEG = function(msg)
     local command = string.lower((msg or ""):match("^%s*(.-)%s*$"))
 
+    if command == "" then
+        toggleEnabled()
+        return
+    end
+
     if command == "on" then
-        isEnabled = true
+        setEnabled(true)
         printStatus("Aktiverad. Skriver i guildchat nar nagon joinar.")
         return
     end
 
     if command == "off" then
-        isEnabled = false
+        setEnabled(false)
         printStatus("Avstangd. Skriver inte i guildchat.")
         return
     end
@@ -141,10 +163,24 @@ SlashCmdList.FIKANEG = function(msg)
         return
     end
 
-    printStatus("Anvand: /fikaneg on, /fikneg off, /fikaneg test")
+    printStatus("Anvand: /fikaneg (toggle), /fikaneg on, /fikneg off, /fikaneg test")
 end
 
 addonFrame:SetScript("OnEvent", function(_, event, arg1)
+    if event == "ADDON_LOADED" then
+        if arg1 ~= addonName then
+            return
+        end
+
+        FIKARealistDB = FIKARealistDB or {}
+        if type(FIKARealistDB.enabled) == "boolean" then
+            isEnabled = FIKARealistDB.enabled
+        else
+            FIKARealistDB.enabled = isEnabled
+        end
+        return
+    end
+
     if event ~= "CHAT_MSG_SYSTEM" or not arg1 then
         return
     end

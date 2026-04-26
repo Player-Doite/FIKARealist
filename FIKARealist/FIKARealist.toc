@@ -3,5 +3,6 @@
 ## Notes: Skickar en sarkastisk valkomstrad nar nagon gar med i FIKA.
 ## Author: FIKA
 ## Version: 1.0.0
+## SavedVariables: FIKARealistDB
 
 FIKARealist.lua
