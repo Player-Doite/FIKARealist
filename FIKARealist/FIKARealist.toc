@@ -3,6 +3,6 @@
 ## Notes: Skickar en sarkastisk välkomstrad när någon går med i FIKA.
 ## Author: FIKA
 ## Version: 1.0.0
-## SavedVariables: FIKARealistDB
+## SavedVariablesPerCharacter: FIKARealistDB
 
 FIKARealist.lua

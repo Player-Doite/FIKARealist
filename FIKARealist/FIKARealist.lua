@@ -10,6 +10,7 @@ local rotation = {}
 local rotationPos = 1
 local isEnabled = true
 local isTestMode = false
+local pendingMessages = {}
 
 local templates = {
     "Jaha, då var du har ocksa, %s. Välkommen till " .. guildName .. ".",
@@ -146,9 +147,8 @@ local function toggleEnabled()
     end
 end
 
-SLASH_FIKANEG1 = "/fikaneg"
-SLASH_FIKANEG2 = "/fikneg"
-SlashCmdList.FIKANEG = function(msg)
+SLASH_FIKAREAL1 = "/fikareal"
+SlashCmdList.FIKAREAL = function(msg)
     local command = string.lower((msg or ""):match("^%s*(.-)%s*$"))
 
     if command == "" then
@@ -178,7 +178,7 @@ SlashCmdList.FIKANEG = function(msg)
         return
     end
 
-    printStatus("Använd: /fikaneg (toggle), /fikaneg on, /fikneg off, /fikaneg test")
+    printStatus("Använd: /fikareal (toggle), /fikareal on, /fikareal off, /fikareal test")
 end
 
 addonFrame:SetScript("OnEvent", function(_, event, arg1)
@@ -218,5 +218,25 @@ addonFrame:SetScript("OnEvent", function(_, event, arg1)
 
     local template = getNextTemplate()
     local message = string.format(template, playerName)
-    SendChatMessage(message, "GUILD")
+    table.insert(pendingMessages, {
+        message = message,
+        sendAt = GetTime() + 1,
+    })
+end)
+
+addonFrame:SetScript("OnUpdate", function()
+    if #pendingMessages == 0 then
+        return
+    end
+
+    local nextMessage = pendingMessages[1]
+    if GetTime() < nextMessage.sendAt then
+        return
+    end
+
+    if isEnabled then
+        SendChatMessage(nextMessage.message, "GUILD")
+    end
+
+    table.remove(pendingMessages, 1)
 end)
