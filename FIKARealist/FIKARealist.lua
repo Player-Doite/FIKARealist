@@ -12,62 +12,62 @@ local isEnabled = true
 local isTestMode = false
 
 local templates = {
-    "Jaha, da var du har ocksa, %s. Valkommen till " .. guildName .. ".",
-    "Ingen panik, %s - forvantningarna i " .. guildName .. " ar redan laga.",
-    "%s har joinat. Perfekt, nu blev " .. guildName .. " exakt sa kaotiskt som vantat.",
-    "Valkommen %s. Hoppas du trivs med lagom daliga beslut i " .. guildName .. ".",
+    "Jaha, då var du har ocksa, %s. Välkommen till " .. guildName .. ".",
+    "Ingen panik, %s - förväntningarna i " .. guildName .. " är redan låga.",
+    "%s har joinat. Perfekt, nu blev " .. guildName .. " exakt så kaotiskt som vantat.",
+    "Välkommen %s. Hoppas du trivs med lagom daliga beslut i " .. guildName .. ".",
     "Kul att se dig, %s. Vi lovar inget utom sen pull och kallt kaffe.",
-    "%s, du ar nu officiellt en del av " .. guildName .. ". Beklagar i forvag.",
-    "Bra timing, %s. Vi var precis pa vag att sakna nagon att skylla pa.",
-    "Valkommen %s - " .. guildName .. " blev just lite mer tveksamt.",
-    "%s joinade. Moral: oforandrat tveksam.",
-    "Hoppas du fler ganger nu nar du joinat " .. guildName .. " an innan, %s.",
-    "%s ar inne. Nu ar fragan bara hur lange entusiasmen overlever.",
-    "Valkommen %s. Du far en gratis plats i var overfulla kaosbudget.",
-    "Javisst, en till. Tja %s, och valkommen till " .. guildName .. ".",
-    "%s, din resa i " .. guildName .. " borjar med latt besvikelse och slutar med fler wipes.",
-    "Valkommen in %s. Forhoppningsvis laser du inte var raidlogg.",
+    "%s, du är nu officiellt en del av " .. guildName .. ". Beklagar i förväg.",
+    "Bra timing, %s. Vi var precis på vag att sakna nagon att skylla pa.",
+    "Välkommen %s - " .. guildName .. " blev just lite mer tveksamt.",
+    "%s joinade. Moral: oförändrat tveksam.",
+    "Hoppas du fler gånger nu när du joinat " .. guildName .. " an innan, %s.",
+    "%s är inne. Nu är frågan bara hur lange entusiasmen överlever.",
+    "Välkommen %s. Du far en gratis plats i var överfulla kaosbudget.",
+    "Javisst, en till. Tja %s, och välkommen till " .. guildName .. ".",
+    "%s, din resa i " .. guildName .. " börjar med latt besvikelse och slutar med fler wipes.",
+    "Välkommen in %s. Förhoppningsvis laser du inte var raidlogg.",
     "%s har anslutit till " .. guildName .. ". Nagon maste ju gora det.",
-    "Kul, %s ar har. Vi marker knappt skillnad an.",
-    "Valkommen %s. Vi ar inte sena - vi ar bara konsekventa.",
+    "Kul, %s är har. Vi märker knappt skillnad an.",
+    "Välkommen %s. Vi är inte sena - vi är bara konsekventa.",
     "%s joinade " .. guildName .. ". Nu saknas bara disciplin och tur.",
     "Bra jobbat %s, du hittade till " .. guildName .. " trots var reputation.",
-    "Valkommen %s. I " .. guildName .. " ar 'snart klar' en livsstil.",
-    "%s ar med nu. Forvarning: vi tar pauser pa allvar.",
-    "Tjena %s. " .. guildName .. " ar platsen dar planer dör i voice.",
-    "Valkommen %s - du kommer passa in sa fort nagot gar fel.",
+    "Välkommen %s. I " .. guildName .. " är 'snart klar' en livsstil.",
+    "%s är med nu. Förvarning: vi tar pauser på allvar.",
+    "Tjena %s. " .. guildName .. " är platsen dar planer dör i voice.",
+    "Välkommen %s - du kommer passa in så fort något gar fel.",
     "%s har joinat. Hoppas du gillar improviserad strategi.",
-    "Japp, %s ar har. Nu blev guildchatten 3%% mer passivt aggressiv.",
-    "Valkommen till " .. guildName .. ", %s. Vi lovar minst ett 'oops' per kvall.",
-    "%s, du ar nu del av laget som alltid 'nastan' hade det.",
-    "Kul med nytt blod, %s. Vi hoppas du tagit med tälamod.",
-    "%s har klivit in i " .. guildName .. ". Ingen vet varfor, men valkommen.",
-    "Valkommen %s. Har far man lara sig skillnaden pa plan och verklighet.",
-    "%s joinade precis. Tur, vi behovde fler vittnen.",
-    "Tjena %s, i " .. guildName .. " ar tystnad ofta ett daligt tecken.",
-    "Valkommen %s. Oroa dig inte - forsta missen ar gratis.",
-    "%s ar inne. Nu har vi annu en som kan skriva 'my bad'.",
-    "Valkommen till " .. guildName .. ", %s. Forhoppning ar tillaten men ej garanterad.",
-    "%s joinade. Bra, da kan vi rotera vem som suckar i chatten.",
-    "Tjena %s. Vi ar glada pa vart eget lite bittra satt.",
-    "Valkommen %s - i " .. guildName .. " kallar vi det 'karaktarbyggande'.",
-    "%s har anslutit. Exakt vad vi behovde: fler fragetecken.",
-    "Kul %s, nu ar du ocksa fast i var sociala cooldown.",
-    "Valkommen %s. Har firar vi framgang med skeptiska nickningar.",
-    "%s joinade " .. guildName .. ". Bara att stalla in sig pa blandade signaler.",
-    "Hej %s. Vi ar inte negativa, bara realistiska med extra krydda.",
-    "Valkommen %s. Haller du ut en vecka far du veteranstatus i klagomur.",
-    "%s har kommit in. Nasta steg: overleva en raidkvall med humor kvar.",
-    "Jaha %s, valkommen till " .. guildName .. " dar plan B ar plan A.",
-    "Valkommen %s. Vi har hog narvaro och lag sjalvinsikt.",
-    "%s ar har nu. Perfekt, da ar gruppen komplett ofullstandig.",
-    "Tjena %s - hoppas du gillar konstruktiv gnallighet.",
-    "Valkommen till " .. guildName .. ", %s. Vi kallar kaos for personlighet.",
-    "%s joinade. Oroa dig inte, ingen vet heller vad som hander.",
-    "Valkommen %s. Har blir allt bra... tillrackligt ofta.",
-    "%s ar med! Vi later bittra, men vi menar oftast val.",
-    "Tjena %s, lagg ribban lagom lagt sa blir du positivt overraskad.",
-    "Valkommen %s. " .. guildName .. " levererar 50%% kvalitet och 100%% kommentarer.",
+    "Japp, %s är har. Nu blev guildchatten 3%% mer passivt aggressiv.",
+    "Välkommen till " .. guildName .. ", %s. Vi lovar minst ett 'oops' per kväll.",
+    "%s, du är nu del av laget som alltid 'nästan' hade det.",
+    "Kul med nytt blod, %s. Vi hoppas du tagit med tålamod.",
+    "%s har klivit in i " .. guildName .. ". Ingen vet varför, men välkommen.",
+    "Välkommen %s. Har far man lara sig skillnaden på plan och verklighet.",
+    "%s joinade precis. Tur, vi behövde fler vittnen.",
+    "Tjena %s, i " .. guildName .. " är tystnad ofta ett daligt tecken.",
+    "Välkommen %s. Oroa dig inte - första missen är gratis.",
+    "%s är inne. Nu har vi ännu en som kan skriva 'my bad'.",
+    "Välkommen till " .. guildName .. ", %s. Förhoppning är tillåten men ej garanterad.",
+    "%s joinade. Bra, då kan vi rotera vem som suckar i chatten.",
+    "Tjena %s. Vi är glada på vart eget lite bittra satt.",
+    "Välkommen %s - i " .. guildName .. " kallar vi det 'karaktärsbyggande'.",
+    "%s har anslutit. Exakt vad vi behövde: fler frågetecken.",
+    "Kul %s, nu är du ocksa fast i var sociala cooldown.",
+    "Välkommen %s. Har firar vi framgång med skeptiska nickningar.",
+    "%s joinade " .. guildName .. ". Bara att ställa in sig på blandade signaler.",
+    "Hej %s. Vi är inte negativa, bara realistiska med extra krydda.",
+    "Välkommen %s. Håller du ut en vecka far du veteranstatus i klagomur.",
+    "%s har kommit in. Nästa steg: överleva en raidkväll med humor kvar.",
+    "Jaha %s, välkommen till " .. guildName .. " dar plan B är plan A.",
+    "Välkommen %s. Vi har hög närvaro och låg självinsikt.",
+    "%s är har nu. Perfekt, då är gruppen komplett ofullständig.",
+    "Tjena %s - hoppas du gillar konstruktiv gnällighet.",
+    "Välkommen till " .. guildName .. ", %s. Vi kallar kaos för personlighet.",
+    "%s joinade. Oroa dig inte, ingen vet heller vad som händer.",
+    "Välkommen %s. Har blir allt bra... tillräckligt ofta.",
+    "%s är med! Vi låter bittra, men vi menar oftast väl.",
+    "Tjena %s, lägg ribban lagom lågt så blir du positivt överraskad.",
+    "Välkommen %s. " .. guildName .. " levererar 50%% kvalitet och 100%% kommentarer.",
 }
 
 local function escapePattern(text)
@@ -125,9 +125,9 @@ end
 local function toggleEnabled()
     setEnabled(not isEnabled)
     if isEnabled then
-        printStatus("Aktiverad. Skriver i guildchat nar nagon joinar.")
+        printStatus("Aktiverad. Skriver i guildchat när någon joinar.")
     else
-        printStatus("Avstangd. Skriver inte i guildchat.")
+        printStatus("Avstängd. Skriver inte i guildchat.")
     end
 end
 
@@ -143,27 +143,27 @@ SlashCmdList.FIKANEG = function(msg)
 
     if command == "on" then
         setEnabled(true)
-        printStatus("Aktiverad. Skriver i guildchat nar nagon joinar.")
+        printStatus("Aktiverad. Skriver i guildchat när någon joinar.")
         return
     end
 
     if command == "off" then
         setEnabled(false)
-        printStatus("Avstangd. Skriver inte i guildchat.")
+        printStatus("Avstängd. Skriver inte i guildchat.")
         return
     end
 
     if command == "test" then
         isTestMode = not isTestMode
         if isTestMode then
-            printStatus("Testlage PA. Skriver lokal debugrad nar join upptacks.")
+            printStatus("Testläge PÅ. Skriver lokal debugrad när join upptäcks.")
         else
-            printStatus("Testlage AV.")
+            printStatus("Testläge AV.")
         end
         return
     end
 
-    printStatus("Anvand: /fikaneg (toggle), /fikaneg on, /fikneg off, /fikaneg test")
+    printStatus("Använd: /fikaneg (toggle), /fikaneg on, /fikneg off, /fikaneg test")
 end
 
 addonFrame:SetScript("OnEvent", function(_, event, arg1)
@@ -191,7 +191,7 @@ addonFrame:SetScript("OnEvent", function(_, event, arg1)
     end
 
     if isTestMode then
-        printStatus("Join upptackt: " .. playerName)
+        printStatus("Join upptäckt: " .. playerName)
     end
 
     if not isEnabled then

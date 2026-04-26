@@ -1,6 +1,6 @@
 ## Interface: 30300
 ## Title: FIKA Realist
-## Notes: Skickar en sarkastisk valkomstrad nar nagon gar med i FIKA.
+## Notes: Skickar en sarkastisk välkomstrad när någon går med i FIKA.
 ## Author: FIKA
 ## Version: 1.0.0
 ## SavedVariables: FIKARealistDB
