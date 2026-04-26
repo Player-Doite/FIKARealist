@@ -2,9 +2,12 @@ local addonFrame = CreateFrame("Frame")
 addonFrame:RegisterEvent("CHAT_MSG_SYSTEM")
 
 local guildName = "FIKA"
+local addonPrefix = "|cff7fd4ffFIKARealist|r"
 local lastUsedIndex = nil
 local rotation = {}
 local rotationPos = 1
+local isEnabled = true
+local isTestMode = false
 
 local templates = {
     "Jaha, da var du har ocksa, %s. Valkommen till " .. guildName .. ".",
@@ -107,6 +110,40 @@ local function getNextTemplate()
     return templates[idx]
 end
 
+local function printStatus(message)
+    DEFAULT_CHAT_FRAME:AddMessage(addonPrefix .. " " .. message)
+end
+
+SLASH_FIKANEG1 = "/fikaneg"
+SLASH_FIKANEG2 = "/fikneg"
+SlashCmdList.FIKANEG = function(msg)
+    local command = string.lower((msg or ""):match("^%s*(.-)%s*$"))
+
+    if command == "on" then
+        isEnabled = true
+        printStatus("Aktiverad. Skriver i guildchat nar nagon joinar.")
+        return
+    end
+
+    if command == "off" then
+        isEnabled = false
+        printStatus("Avstangd. Skriver inte i guildchat.")
+        return
+    end
+
+    if command == "test" then
+        isTestMode = not isTestMode
+        if isTestMode then
+            printStatus("Testlage PA. Skriver lokal debugrad nar join upptacks.")
+        else
+            printStatus("Testlage AV.")
+        end
+        return
+    end
+
+    printStatus("Anvand: /fikaneg on, /fikneg off, /fikaneg test")
+end
+
 addonFrame:SetScript("OnEvent", function(_, event, arg1)
     if event ~= "CHAT_MSG_SYSTEM" or not arg1 then
         return
@@ -114,6 +151,14 @@ addonFrame:SetScript("OnEvent", function(_, event, arg1)
 
     local playerName = getGuildJoinName(arg1)
     if not playerName then
+        return
+    end
+
+    if isTestMode then
+        printStatus("Join upptackt: " .. playerName)
+    end
+
+    if not isEnabled then
         return
     end
 
