@@ -75,12 +75,27 @@ local function escapePattern(text)
 end
 
 local function getGuildJoinName(systemMessage)
+    local linkName = systemMessage:match("|Hplayer:([^:|]+)")
+    if linkName and linkName ~= "" then
+        return linkName
+    end
+
     if not ERR_GUILD_JOIN_S then
-        return nil
+        local englishName = systemMessage:match("^%[?([^%]]+)%]? has joined the guild%.$")
+        return englishName
     end
 
     local pattern = "^" .. escapePattern(ERR_GUILD_JOIN_S):gsub("%%s", "(.+)") .. "$"
-    return systemMessage:match(pattern)
+    local rawName = systemMessage:match(pattern)
+    if not rawName then
+        rawName = systemMessage:match("^%[?([^%]]+)%]? has joined the guild%.$")
+    end
+
+    if not rawName then
+        return nil
+    end
+
+    return rawName:gsub("^%[", ""):gsub("%]$", "")
 end
 
 local function rebuildRotation()
@@ -187,6 +202,9 @@ addonFrame:SetScript("OnEvent", function(_, event, arg1)
 
     local playerName = getGuildJoinName(arg1)
     if not playerName then
+        if isTestMode and arg1:find("has joined the guild%.") then
+            printStatus("Trigger upptäckt men kunde inte läsa namn: " .. arg1)
+        end
         return
     end
 
