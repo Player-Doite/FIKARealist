@@ -75,19 +75,38 @@ local function escapePattern(text)
     return text:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
 end
 
-local function getGuildJoinName(systemMessage)
-    local linkName = systemMessage:match("|Hplayer:([^:|]+)")
+local function matchesSystemFormat(systemMessage, formatString)
+    if not formatString or formatString == "" then
+        return false
+    end
+
+    local pattern = "^" .. escapePattern(formatString):gsub("%%s", "(.+)") .. "$"
+    return systemMessage:match(pattern) ~= nil
+end
+
+local function extractPlayerName(rawName)
+    local linkName = rawName:match("|Hplayer:([^:|]+)")
     if linkName and linkName ~= "" then
         return linkName
     end
 
-    if not ERR_GUILD_JOIN_S then
-        local englishName = systemMessage:match("^%[?([^%]]+)%]? has joined the guild%.$")
-        return englishName
+    return rawName:gsub("^%[", ""):gsub("%]$", "")
+end
+
+local function getGuildJoinName(systemMessage)
+    if matchesSystemFormat(systemMessage, ERR_FRIEND_ONLINE_SS)
+        or matchesSystemFormat(systemMessage, ERR_FRIEND_OFFLINE_S)
+        or matchesSystemFormat(systemMessage, ERR_FRIEND_OFFLINE_SS) then
+        return nil
     end
 
-    local pattern = "^" .. escapePattern(ERR_GUILD_JOIN_S):gsub("%%s", "(.+)") .. "$"
-    local rawName = systemMessage:match(pattern)
+    local rawName = nil
+
+    if ERR_GUILD_JOIN_S then
+        local guildPattern = "^" .. escapePattern(ERR_GUILD_JOIN_S):gsub("%%s", "(.+)") .. "$"
+        rawName = systemMessage:match(guildPattern)
+    end
+
     if not rawName then
         rawName = systemMessage:match("^%[?([^%]]+)%]? has joined the guild%.$")
     end
@@ -96,7 +115,7 @@ local function getGuildJoinName(systemMessage)
         return nil
     end
 
-    return rawName:gsub("^%[", ""):gsub("%]$", "")
+    return extractPlayerName(rawName)
 end
 
 local function rebuildRotation()
